@@ -49,6 +49,7 @@
 		9E0009D63E4BDBF3038F41B1 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7D15563E7948D0C591B7BF /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		C866826326C27BC10042060C /* GoogleService-Info.dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.dev.plist"; sourceTree = "<group>"; };
+		C8E1918B26C28A8300BDE1AD /* EnvironmentVariables.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = EnvironmentVariables.xcconfig; path = Flutter/EnvironmentVariables.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +81,7 @@
 				9740EEB21CF90195004384FC /* Debug.xcconfig */,
 				7AFA3C8E1D35360C0083082E /* Release.xcconfig */,
 				9740EEB31CF90195004384FC /* Generated.xcconfig */,
+				C8E1918B26C28A8300BDE1AD /* EnvironmentVariables.xcconfig */,
 			);
 			name = Flutter;
 			sourceTree = "<group>";
