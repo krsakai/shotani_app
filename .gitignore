@@ -44,3 +44,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+**/Configurations/GoogleService-Info.dev.plist
+**/Configurations/GoogleService-Info.stg.plist
+**/Configurations/GoogleService-Info.prg.plist
+
+ios/Flutter/EnvironmentVariables.xcconfig
