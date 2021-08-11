@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shotani_app/presentation/home/home_tab_page.dart';
 import 'package:shotani_app/util/colors.dart';
 
 class Application extends StatelessWidget {
@@ -11,7 +12,12 @@ class Application extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         primarySwatch: AppColor.customSwatch,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page')
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("ddd"),
+        ),
+        body: HomeTabPage()
+      )
     );
   }
 }
