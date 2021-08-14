@@ -11,6 +11,7 @@ class SamplePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final model = useProvider(sampleModelProvider);
+    
     return Scaffold(
       body: Center(
         child: Column(

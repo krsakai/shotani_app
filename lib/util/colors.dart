@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class AppColor {
   static const int _primaryValue = 0xFF1A55A4;
-  static const MaterialColor customSwatch = MaterialColor(
+  static const MaterialColor primarySwatch = MaterialColor(
     _primaryValue,
     const <int, Color>{
       50: Color(0xFFE8F0F8),
@@ -18,4 +18,10 @@ class AppColor {
       900: Color(0xFF1A55A4),
     },
   );
+
+  static const tableBorder = Color(0xFFFFFFFF);
+  static const tableHeaderCell = Color(0xFF2F72B9);
+  static const tableContentCell1 = Color(0xFFE9E9E9);
+  static const tableContentCell2 = Color(0xFFCBCBCB);
+  static const tableLeadCell = Color(0xFF2F72B9);
 }

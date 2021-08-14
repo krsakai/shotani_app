@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:shotani_app/presentation/home/home_tab_page.dart';
 import 'package:shotani_app/util/colors.dart';
+import 'package:shotani_app/util/never_glow_scroll.dart';
 
 class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: (context, child) => NeverGlowScrollConfiguration(child: child),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        primarySwatch: AppColor.customSwatch,
+        primarySwatch: AppColor.primarySwatch,
       ),
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("ddd"),
-        ),
         body: HomeTabPage()
       )
     );
