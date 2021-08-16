@@ -19,15 +19,17 @@ class LatestScoreModel extends Model {
   @override
   Future init() async {
     _reloadObserver.sink.add(true);
-    latestHitterScoreList = await ScoreRepository().fetchLatestHitterScoreList();
-    latestPitcherScoreList = await ScoreRepository().fetchLatestPitcherScoreList();
+    latestHitterScoreList = await ScoreRepository().fetchLatestHitterScoreList;
+    latestPitcherScoreList = await ScoreRepository().fetchLatestPitcherScoreList;
+    await Future.delayed(Duration(milliseconds: 500));
     _reloadObserver.sink.add(false);
   }
 
   void reload() async {
     _reloadObserver.sink.add(true);
-    latestHitterScoreList = await ScoreRepository().fetchLatestHitterScoreList();
-    latestPitcherScoreList = await ScoreRepository().fetchLatestPitcherScoreList();
+    latestHitterScoreList = await ScoreRepository().fetchLatestHitterScoreList;
+    latestPitcherScoreList = await ScoreRepository().fetchLatestPitcherScoreList;
+    await Future.delayed(Duration(milliseconds: 500));
     _reloadObserver.sink.add(false);
   }
 

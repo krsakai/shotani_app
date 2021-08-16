@@ -1,7 +1,4 @@
 import 'dart:async';
-
-import 'package:shotani_app/domain/latest_score/latest_hitter_score/latest_hitter_score.dart';
-import 'package:shotani_app/domain/latest_score/latest_pitcher_score/latest_pitcher_score.dart';
 import 'package:shotani_app/domain/latest_score/latest_score.dart';
 import 'package:shotani_app/domain/season_score/hitter_score/hitter_score.dart';
 import 'package:shotani_app/domain/season_score/pitcher_score/pitcher_score.dart';
@@ -21,15 +18,17 @@ class SeasonScoreModel extends Model {
   @override
   Future init() async {
     _reloadObserver.sink.add(true);
-    hitterScoreList = await ScoreRepository().fetchSeasonHitterScoreList();
-    pitcherScoreList = await ScoreRepository().fetchSeasonPitcherScoreList();
+    hitterScoreList = await ScoreRepository().fetchSeasonHitterScoreList;
+    pitcherScoreList = await ScoreRepository().fetchSeasonPitcherScoreList;
+    await Future.delayed(Duration(milliseconds: 500));
     _reloadObserver.sink.add(false);
   }
 
   void reload() async {
     _reloadObserver.sink.add(true);
-    hitterScoreList = await ScoreRepository().fetchSeasonHitterScoreList();
-    pitcherScoreList = await ScoreRepository().fetchSeasonPitcherScoreList();
+    hitterScoreList = await ScoreRepository().fetchSeasonHitterScoreList;
+    pitcherScoreList = await ScoreRepository().fetchSeasonPitcherScoreList;
+    await Future.delayed(Duration(milliseconds: 500));
     _reloadObserver.sink.add(false);
   }
 

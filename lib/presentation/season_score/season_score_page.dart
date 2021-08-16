@@ -22,7 +22,10 @@ class SeasonScorePage extends HookWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(pageName),
+        brightness: Brightness.dark,
+        automaticallyImplyLeading: false,
       ),
+      backgroundColor: Colors.grey.withOpacity(0.5),
       body: StreamBuilder(
         stream: model.loadStream,
         builder: (context, snapshot) {
@@ -42,48 +45,50 @@ class SeasonScorePage extends HookWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start, 
-                      children: [
-                        _tableTitle("打者成績")
-                      ]
-                    ),
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.only(left: 5, right: 5),
+                child: Card(
+                  elevation: 0,
+                  color: Colors.transparent,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 40,
+                        width: double.infinity,
+                        color: AppColor.tableLeadCell,
+                        child: _tableTitle("打者成績")
+                      ),
+                      Expanded(
                         child: _scoreTable(
                           model.hitterScoreColumnTitleList,
                           model.hitterScoreDataList,
                           model.hitterScoreYearColumnRowList
                         )
-                      )
-                    ),
-                  ]
+                      ),
+                    ]
+                  ),
                 ),
               ),
-              Divider(color: Colors.grey),
+              // SizedBox(height: 10),
               Expanded(
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start, 
-                      children: [
-                        _tableTitle("投手成績")
-                      ]
-                    ),
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.only(left: 5, right: 5),
+                child: Card(
+                  elevation: 0,
+                  color: Colors.transparent,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 40,
+                        width: double.infinity,
+                        color: AppColor.tableLeadCell,
+                        child: _tableTitle("投手成績")
+                      ),
+                      Expanded(
                         child: _scoreTable(
                           model.pitcherScoreColumnTitleList,
                           model.pitcherScoreDataList,
                           model.pitcherScoreYearColumnRowList
                         )
-                      )
-                    ),
-                  ]
+                      ),
+                    ]
+                  ),
                 ),
               ),
             ]
@@ -98,22 +103,14 @@ class SeasonScorePage extends HookWidget {
   final leadCellWidth = 120.0;
   final contentCellWidth = 100.0;
 
-  Widget _tableTitle(String text) => Container(
-    padding: EdgeInsets.all(5),
-    child: Container(
-      child: Text(
-        text,
-        style: AppFont.systemBoldBlack(22)
-      ),
-    ),
-  );
+  Widget _tableTitle(String text) => Center( child: Text(text,style: AppFont.systemBoldWhite(22)));
   
   Widget _dateColumnCell(String title) => Container(
     height: headerCellHeight,
     width: leadCellWidth,
     decoration: BoxDecoration(
       color: AppColor.tableLeadCell,
-      border: AppBorder.squareBorder(AppColor.tableBorder, 1),
+      border: AppBorder.border(AppColor.tableBorder, 1),
     ),
     child: Center(
       child: AutoSizeText(
@@ -122,7 +119,7 @@ class SeasonScorePage extends HookWidget {
         maxLines: 1, 
         minFontSize: 4,
         textAlign: TextAlign.center
-      ),
+      )
     )
   );
 
@@ -131,7 +128,7 @@ class SeasonScorePage extends HookWidget {
     width: contentCellWidth,
     decoration: BoxDecoration(
       color: AppColor.tableHeaderCell,
-      border: AppBorder.squareBorder(AppColor.tableBorder, 1),
+      border: AppBorder.border(AppColor.tableBorder, 1),
     ),
     child: Center(
       child: AutoSizeText(
@@ -151,7 +148,7 @@ class SeasonScorePage extends HookWidget {
     child: Container(
       decoration: BoxDecoration(
         color: row.isEven ? AppColor.tableContentCell1: AppColor.tableContentCell2,
-        border: AppBorder.squareBorder(AppColor.tableBorder, 1),
+        border: AppBorder.border(AppColor.tableBorder, 1),
       ),
       child: Center(
         child: AutoSizeText(
@@ -167,14 +164,11 @@ class SeasonScorePage extends HookWidget {
   Widget _scoreTable(List<String> titleList, List<LatestScore> dataList, List<String> dateRowList) {
     final titleCell = (String title) => _dataTitleCell(title);
     final titleCellList = titleList.map((e) => titleCell(e)).toList();
-    
     final contentCell = (LatestScore score, String title, int index) => _dataContentCell(score, title, index);
     final contentCellList = (LatestScore score, int row) => score.dataList.map((title) => contentCell(score, title, row)).toList();
     final rowCellLists = dataList.mapIndex((latestScore, index) => contentCellList(latestScore, index)).toList();
-
     final rowTitleCell = (String title) => _dateColumnCell(title);
     final rowTitleList = dateRowList.map((e) => rowTitleCell(e)).toList();
-
     return StickyHeadersTable(
       cellDimensions: CellDimensions.fixed(
         contentCellWidth: contentCellWidth, 
