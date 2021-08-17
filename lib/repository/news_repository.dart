@@ -9,9 +9,9 @@ class NewsRepository {
     try {
       final result = await _db.collection("news").orderBy('newsId', descending: true).limit(10).get();
       return result.docs.map((e) => News.fromJson(e.data())).toList();
-    } catch (e) {
-      Logger().e(e.toString());
-      return null;
+    } catch (exception) {
+      Logger().e(exception.toString());
+      return [];
     }
   }
 }

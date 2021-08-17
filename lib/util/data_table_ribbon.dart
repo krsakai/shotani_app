@@ -23,12 +23,12 @@ class DataTableRibbon extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return Ribbon(
-      nearLength: isDisplay ? 15 : 1,
-      farLength: isDisplay ? 35 : 1,
+      nearLength: isDisplay ? 10 : 1,
+      farLength: isDisplay ? 30 : 1,
       title: text,
       titleStyle: TextStyle(
         color: textColor,
-        fontSize: 12,
+        fontSize: 10,
         fontWeight: FontWeight.bold
       ),
       color: color,

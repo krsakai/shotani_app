@@ -41,6 +41,7 @@ class SeasonScorePage extends HookWidget {
               ),
             );
           }
+          final sectionHeaderHeight = 30.0;
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -51,7 +52,7 @@ class SeasonScorePage extends HookWidget {
                   child: Column(
                     children: [
                       Container(
-                        height: 40,
+                        height: sectionHeaderHeight,
                         width: double.infinity,
                         color: AppColor.tableLeadCell,
                         child: _tableTitle("打者成績")
@@ -75,7 +76,7 @@ class SeasonScorePage extends HookWidget {
                   child: Column(
                     children: [
                       Container(
-                        height: 40,
+                        height: sectionHeaderHeight,
                         width: double.infinity,
                         color: AppColor.tableLeadCell,
                         child: _tableTitle("投手成績")
@@ -98,12 +99,12 @@ class SeasonScorePage extends HookWidget {
     );
   }
 
-  final headerCellHeight = 45.0;
-  final contentCellHeight = 45.0;
-  final leadCellWidth = 120.0;
-  final contentCellWidth = 100.0;
+  final headerCellHeight = 40.0;
+  final contentCellHeight = 40.0;
+  final leadCellWidth = 60.0;
+  final contentCellWidth = 80.0;
 
-  Widget _tableTitle(String text) => Center( child: Text(text,style: AppFont.systemBoldWhite(22)));
+  Widget _tableTitle(String text) => Center( child: Text(text,style: AppFont.systemBoldWhite(18)));
   
   Widget _dateColumnCell(String title) => Container(
     height: headerCellHeight,
@@ -115,10 +116,9 @@ class SeasonScorePage extends HookWidget {
     child: Center(
       child: AutoSizeText(
         title, 
-        style: AppFont.systemBoldWhite(16),
+        style: AppFont.systemWhite(14),
         maxLines: 1, 
         minFontSize: 4,
-        textAlign: TextAlign.center
       )
     )
   );
@@ -133,7 +133,7 @@ class SeasonScorePage extends HookWidget {
     child: Center(
       child: AutoSizeText(
         title, 
-        style: AppFont.systemBoldWhite(16),
+        style: AppFont.systemBoldWhite(12),
         maxLines: 1, 
         minFontSize: 4,
         textAlign: TextAlign.center
@@ -155,7 +155,7 @@ class SeasonScorePage extends HookWidget {
           title, maxLines: 2, 
           minFontSize: 4,
           textAlign: TextAlign.center,
-          style: AppFont.systemBlack(14),
+          style: AppFont.systemBoldBlack(12),
         )
       ),
     ),
@@ -180,7 +180,7 @@ class SeasonScorePage extends HookWidget {
       rowsLength: rowCellLists.length,
       columnsTitleBuilder: (column) => titleCellList[column],
       contentCellBuilder: (column, row) => rowCellLists[row][column],
-      legendCell: _dateColumnCell("シーズン"),
+      legendCell: _dateColumnCell("年"),
       rowsTitleBuilder: (row) => rowTitleList[row]
     );
   }

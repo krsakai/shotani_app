@@ -45,6 +45,7 @@ class LatestScorePage extends HookWidget {
               ),
             );
           }
+          final sectionHeaderHeight = 30.0;
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -52,48 +53,58 @@ class LatestScorePage extends HookWidget {
                 child: Card(
                   elevation: 0,
                   color: Colors.transparent,
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 40,
-                        width: double.infinity,
-                        color: AppColor.tableLeadCell,
-                        child: _tableTitle("打者成績")
-                      ),
-                      Expanded(
-                        child: Container(
-                          child: _scoreTable(
-                            model.hitterScoreColumnTitleList,
-                            model.hitterScoreDataList,
-                            model.hitterScoreDateColumnRowList
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: AppBorder.border(AppColor.tableBorder, 1),
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: sectionHeaderHeight,
+                          width: double.infinity,
+                          color: AppColor.tableLeadCell,
+                          child: _tableTitle("打者成績")
+                        ),
+                        Expanded(
+                          child: Container(
+                            child: _scoreTable(
+                              model.hitterScoreColumnTitleList,
+                              model.hitterScoreDataList,
+                              model.hitterScoreDateColumnRowList
+                            )
                           )
-                        )
-                      ),
-                    ]
+                        ),
+                      ]
+                    ),
                   ),
                 ),
               ),
-              // SizedBox(height: 10),
+              SizedBox(height: 5),
               Expanded(
                 child: Card(
                   elevation: 0,
                   color: Colors.transparent,
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 40,
-                        width: double.infinity,
-                        color: AppColor.tableLeadCell,
-                        child: _tableTitle("投手成績")
-                      ),
-                      Expanded(
-                        child: _scoreTable(
-                          model.pitcherScoreColumnTitleList,
-                          model.pitcherScoreDataList,
-                          model.pitcherScoreDateColumnRowList
-                        )
-                      ),
-                    ]
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: AppBorder.border(AppColor.tableBorder, 1),
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: sectionHeaderHeight,
+                          width: double.infinity,
+                          color: AppColor.tableLeadCell,
+                          child: _tableTitle("投手成績")
+                        ),
+                        Expanded(
+                          child: _scoreTable(
+                            model.pitcherScoreColumnTitleList,
+                            model.pitcherScoreDataList,
+                            model.pitcherScoreDateColumnRowList
+                          )
+                        ),
+                      ]
+                    ),
                   ),
                 ),
               ),
@@ -104,12 +115,12 @@ class LatestScorePage extends HookWidget {
     );
   }
 
-  final headerCellHeight = 45.0;
-  final contentCellHeight = 45.0;
-  final leadCellWidth = 120.0;
-  final contentCellWidth = 100.0;
+  final headerCellHeight = 40.0;
+  final contentCellHeight = 40.0;
+  final leadCellWidth = 80.0;
+  final contentCellWidth = 80.0;
 
-  Widget _tableTitle(String text) => Center( child: Text(text,style: AppFont.systemBoldWhite(22)));
+  Widget _tableTitle(String text) => Center( child: Text(text,style: AppFont.systemBoldWhite(18)));
   
   Widget _dateColumnTitleCell(String title) => Container(
     height: headerCellHeight,
@@ -121,7 +132,7 @@ class LatestScorePage extends HookWidget {
     child: Center(
       child: AutoSizeText(
         title, 
-        style: AppFont.systemBoldWhite(16),
+        style: AppFont.systemBoldWhite(12),
         maxLines: 1, 
         minFontSize: 4,
         textAlign: TextAlign.center
@@ -149,10 +160,10 @@ class LatestScorePage extends HookWidget {
         child: Center(
           child: AutoSizeText(
             dateTime.toStringWith(AppDateFormat.displayMonthToDay), 
-            style: AppFont.systemBoldWhite(16),
+            style: AppFont.systemBoldWhite(12),
             maxLines: 1, 
             minFontSize: 4,
-            textAlign: TextAlign.center
+            textAlign: TextAlign.right
           )
         ),
       ),
@@ -169,7 +180,7 @@ class LatestScorePage extends HookWidget {
     child: Center(
       child: AutoSizeText(
         title, 
-        style: AppFont.systemBoldWhite(16),
+        style: AppFont.systemBoldWhite(12),
         maxLines: 1, 
         minFontSize: 4,
         textAlign: TextAlign.center
@@ -191,7 +202,7 @@ class LatestScorePage extends HookWidget {
           title, maxLines: 2, 
           minFontSize: 4,
           textAlign: TextAlign.center,
-          style: AppFont.systemBlack(14),
+          style: AppFont.systemBoldBlack(12),
         )
       ),
     ),

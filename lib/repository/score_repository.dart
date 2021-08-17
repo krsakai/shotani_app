@@ -12,9 +12,9 @@ class ScoreRepository {
     try {
       final result = await _db.collection("latestHitterScore").orderBy('date', descending: true).limit(10).get();
       return result.docs.map((e) => LatestHitterScore.fromJson(e.data())).toList();
-    } catch (e) {
-      Logger().e(e.toString());
-      return null;
+    } catch (exception) {
+      Logger().e(exception.toString());
+      return [];
     }
   }
 
@@ -22,9 +22,9 @@ class ScoreRepository {
     try {
       final result = await _db.collection("latestPitcherScore").orderBy('date', descending: true).limit(10).get();
       return result.docs.map((e) => LatestPitcherScore.fromJson(e.data())).toList();
-    } catch (e) {
-      Logger().e(e.toString());
-      return null;
+    } catch (exception) {
+      Logger().e(exception.toString());
+      return [];
     }
   }
 
@@ -32,9 +32,9 @@ class ScoreRepository {
     try {
       final result = await _db.collection("hitterScore").orderBy('year', descending: true).limit(5).get();
       return result.docs.map((e) => HitterScore.fromJson(e.data())).toList();
-    } catch (e) {
-      Logger().e(e.toString());
-      return null;
+    } catch (exception) {
+      Logger().e(exception.toString());
+      return [];
     }
   }
 
@@ -42,9 +42,9 @@ class ScoreRepository {
     try {
       final result = await _db.collection("pitcherScore").orderBy('year', descending: true).limit(5).get();
       return result.docs.map((e) => PitcherScore.fromJson(e.data())).toList();
-    } catch (e) {
-      Logger().e(e.toString());
-      return null;
+    } catch (exception) {
+      Logger().e(exception.toString());
+      return [];
     }
   }
 }

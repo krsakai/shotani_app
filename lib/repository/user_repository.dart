@@ -1,17 +1,36 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:logger/logger.dart';
-import 'package:shotani_app/domain/news/news.dart';
+import 'package:shotani_app/util/auth.dart';
+import 'package:shotani_app/util/messaging.dart';
 
 class UserRepository {
   final _db = FirebaseFirestore.instance;
 
-  Future updateFCMToken(String token, [String userId = ""]) async {
+  Future update([Map<String, dynamic> item]) async {
     try {
-      // FIXME: FirebaseAuthでユーザーを予め作る
-      await _db.collection("user").doc(token).set({'token': token});
-    } catch (e) {
-      Logger().e(e.toString());
-      return null;
+      final user = await Auth().signIn();
+      final doc = await _db.collection("user").doc(user.uid).get();
+      if (doc.exists) {
+        await _db.collection("user").doc(user.uid).update({'uid': user.uid, ...item});
+      } else {
+        await _db.collection("user").doc(user.uid).set({'uid': user.uid, ...item});
+      }
+    } catch (exception) {
+      throw exception;
+    }
+  }
+  
+  Future updateToken() async {
+    try {
+      final user = await Auth().signIn();
+      final token = await Messaging.getToken(user.uid);
+      final doc = await _db.collection("user").doc(user.uid).get();
+      if (doc.exists) {
+        await _db.collection("user").doc(user.uid).update({'token': token, 'uid': user.uid});
+      } else {
+        await _db.collection("user").doc(user.uid).set({'token': token, 'uid': user.uid});
+      }
+    } catch (exception) {
+      throw exception;
     }
   }
 }

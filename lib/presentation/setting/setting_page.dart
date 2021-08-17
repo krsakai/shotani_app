@@ -3,20 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shotani_app/domain/setting/setting.dart';
 import 'package:shotani_app/presentation/setting/setting_model.dart';
 
 class SettingPage extends HookWidget {
   SettingPage();
 
   final String pageName = "設定";
-
-  final List _elements = [
-    {'name': '広告', 'group': '設定'},
-    {'name': 'プッシュ通知', 'group': '設定'},
-    {'name': 'テーマ色', 'group': '外観'},
-    {'name': '他のアプリ', 'group': '利用規約'},
-    {'name': '利用規約', 'group': '利用規約'},
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -28,37 +21,57 @@ class SettingPage extends HookWidget {
         automaticallyImplyLeading: false,
       ),
       backgroundColor: Colors.grey.withOpacity(0.5),
-      body: _aaaa()
+      body: _groupedListView(model)
     );
   }
 
-  Widget _aaaa() {
-    /// 参考リンク：https://yuyuublog.com/flutterlistviewgroupedlist/
-    return GroupedListView<dynamic, String>(
-      elements: _elements,
-      groupBy: (element) => element['group'],
-      order: GroupedListOrder.DESC,
+  /// 参考：https://yuyuublog.com/flutterlistviewgroupedlist/
+  Widget _groupedListView(SettingModel model) { 
+    final context = useContext();
+    return GroupedListView<Setting, String>(
+      elements: model.settingList,
+      groupBy: (element) => element.group,
       floatingHeader: true,
       groupSeparatorBuilder: (String value) => Container(
         padding: EdgeInsets.only(left: 5, top: 15, bottom: 5),
-        child: Text(
-          value,
-          textAlign: TextAlign.start,
-          style: TextStyle(fontSize: 14),
+        child: Text(value, textAlign: TextAlign.start, style: TextStyle(fontSize: 14))
+      ),
+      itemBuilder: (context, element) { 
+        switch (element.content) {
+          case SettingContent.pushNotification: 
+            return _pushNotificationSwitchingCell(model, element, context); 
+          default: 
+            return Center();
+        }
+      }
+    );
+  }
+  
+  Widget _pushNotificationSwitchingCell(SettingModel model, Setting element, BuildContext context) { 
+    return Card(
+      child: ListTile(
+        title: Text(element.name),
+        trailing: CupertinoSwitch(
+          activeColor: Colors.blue,
+          value: model.isAvaiablePushNotification,
+          onChanged: (bool value) async {
+            if (value) {
+              if (!await model.enablingPushNotificationWithUser()) {
+                showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    title: Center(child: Text("プッシュ通知が利用できません")),
+                    content: Text("端末の通知設定 及び 本アプリの通知設定をONに変更して下さい"),
+                    actions: [ElevatedButton(onPressed: () => Navigator.pop(context), child: Text("OK"))],
+                  )
+                );
+              }
+            } else {
+              await model.disnablingPushNotificationWithUser();
+            }
+          },
         ),
       ),
-      itemBuilder: (context, element) => Card(
-        child: ListTile(
-          title: Text(element['name']),
-          trailing: CupertinoSwitch(
-            activeColor: Colors.blue,
-            value: false,
-            onChanged: (bool value) {
-              // model.update(value);
-            },
-          ),
-        ),
-      )
     );
   }
 }
