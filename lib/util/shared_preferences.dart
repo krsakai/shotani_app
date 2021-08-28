@@ -3,7 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 enum PreferenceKey {
   isReboot,
-  isAllowedNotification,
+  isAllowedGameStartNotification,
+  isAllowedBatReportNotification
 }
 
 class PreferenceModel<T> {
@@ -14,7 +15,8 @@ class PreferenceModel<T> {
 extension PreferenceKeyExtension on PreferenceKey {
   String get keyName {
     switch (this) {
-      case PreferenceKey.isAllowedNotification: return "isAllowedNotification";
+      case PreferenceKey.isAllowedGameStartNotification: return "isAllowedGameStartNotification";
+      case PreferenceKey.isAllowedBatReportNotification: return "isAllowedBatReportNotification";
       default: return "";
     }
   }

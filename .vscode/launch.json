@@ -35,3 +35,6 @@
     // flutter build appbundle --verbose --release --dart-define=BUILD_ENV=prd
   ]
 }
+
+// BUNDLE_ID_SUFFIX=.dev
+// BUILD_ENV=dev

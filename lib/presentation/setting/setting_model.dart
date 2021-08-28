@@ -9,40 +9,75 @@ final settingModelProvider = ChangeNotifierProvider.autoDispose((_) => SettingMo
 
 class SettingModel extends Model {
   final List<Setting> settingList = [
-    Setting(id: 0, name: "プッシュ通知", group: "設定", content: SettingContent.pushNotification)
+    Setting(id: 0, name: "試合開始通知", group: "設定", content: SettingContent.gameStartPushNotification),
+    Setting(id: 1, name: "打席結果通知", group: "設定", content: SettingContent.batReportPushNotification)
   ];
-  bool isAvaiablePushNotification = false;
+  bool isAvaiableGameStartPushNotification = false;
+  bool isAvaiableBatReportPushNotification = false;
 
   @override
   Future init() async {
-    isAvaiablePushNotification = await _isAvaiablePushNotification();
+    isAvaiableGameStartPushNotification = await _isAvaiableGameStartPushNotification();
+    isAvaiableBatReportPushNotification = await _isAvaiableBatReportPushNotification();
     notifyListeners();
   }
 
-  Future<bool> _isAvaiablePushNotification() async {
+  Future<bool> _isAvaiableGameStartPushNotification() async {
     final isAvaiablePushNotification = await Messaging.isAvaiablePushNotification();
-    final isUserAllowNotification = await PreferenceKey.isAllowedNotification.get<bool>();
+    final isUserAllowNotification = await PreferenceKey.isAllowedGameStartNotification.get<bool>();
     return isAvaiablePushNotification && isUserAllowNotification;
   }
 
-  Future<bool> enablingPushNotificationWithUser() async {
+  Future<bool> _isAvaiableBatReportPushNotification() async {
+    final isAvaiablePushNotification = await Messaging.isAvaiablePushNotification();
+    final isUserAllowNotification = await PreferenceKey.isAllowedBatReportNotification.get<bool>();
+    return isAvaiablePushNotification && isUserAllowNotification;
+  }
+
+  Future<bool> enablingGameStartPushNotificationWithUser() async {
     try {
       await UserRepository().updateToken();
-      isAvaiablePushNotification = true;
+      await UserRepository().update({'game_notification_suspend': false});
+      isAvaiableGameStartPushNotification = true;
       notifyListeners();
-      await PreferenceKey.isAllowedNotification.set(PreferenceModel(true));
+      await PreferenceKey.isAllowedGameStartNotification.set(PreferenceModel(true));
       return true;
     } catch(exception) {
       return false;
     }
   }
 
-  Future<bool> disnablingPushNotificationWithUser() async {
+  Future<bool> disnablingGameStartPushNotificationWithUser() async {
     try {
-      await UserRepository().update({'suspend': true});
-      isAvaiablePushNotification = false;
+      await UserRepository().update({'game_notification_suspend': true});
+      isAvaiableGameStartPushNotification = false;
       notifyListeners();
-      await PreferenceKey.isAllowedNotification.set(PreferenceModel(false));
+      await PreferenceKey.isAllowedGameStartNotification.set(PreferenceModel(false));
+      return true;
+    } catch(exception) {
+      return false;
+    }
+  }
+
+  Future<bool> enablingBatReportPushNotificationWithUser() async {
+    try {
+      await UserRepository().updateToken();
+      await UserRepository().update({'bat_notification_suspend': false});
+      isAvaiableBatReportPushNotification = true;
+      notifyListeners();
+      await PreferenceKey.isAllowedBatReportNotification.set(PreferenceModel(true));
+      return true;
+    } catch(exception) {
+      return false;
+    }
+  }
+
+  Future<bool> disnablingBatReportPushNotificationWithUser() async {
+    try {
+      await UserRepository().update({'bat_notification_suspend': true});
+      isAvaiableBatReportPushNotification = false;
+      notifyListeners();
+      await PreferenceKey.isAllowedBatReportNotification.set(PreferenceModel(false));
       return true;
     } catch(exception) {
       return false;

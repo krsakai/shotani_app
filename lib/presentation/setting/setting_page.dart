@@ -5,8 +5,9 @@ import 'package:grouped_list/grouped_list.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shotani_app/domain/setting/setting.dart';
 import 'package:shotani_app/presentation/setting/setting_model.dart';
+import 'package:shotani_app/presentation/tab_page.dart';
 
-class SettingPage extends HookWidget {
+class SettingPage extends TabPage {
   SettingPage();
 
   final String pageName = "設定";
@@ -38,8 +39,10 @@ class SettingPage extends HookWidget {
       ),
       itemBuilder: (context, element) { 
         switch (element.content) {
-          case SettingContent.pushNotification: 
-            return _pushNotificationSwitchingCell(model, element, context); 
+          case SettingContent.gameStartPushNotification: 
+            return _gameStartNotificationSettingCell(model, element, context); 
+          case SettingContent.batReportPushNotification:
+             return _batReportNotificationSettingCell(model, element, context); 
           default: 
             return Center();
         }
@@ -47,16 +50,16 @@ class SettingPage extends HookWidget {
     );
   }
   
-  Widget _pushNotificationSwitchingCell(SettingModel model, Setting element, BuildContext context) { 
+  Widget _gameStartNotificationSettingCell(SettingModel model, Setting element, BuildContext context) { 
     return Card(
       child: ListTile(
         title: Text(element.name),
         trailing: CupertinoSwitch(
           activeColor: Colors.blue,
-          value: model.isAvaiablePushNotification,
+          value: model.isAvaiableGameStartPushNotification,
           onChanged: (bool value) async {
             if (value) {
-              if (!await model.enablingPushNotificationWithUser()) {
+              if (!await model.enablingGameStartPushNotificationWithUser()) {
                 showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
@@ -67,7 +70,35 @@ class SettingPage extends HookWidget {
                 );
               }
             } else {
-              await model.disnablingPushNotificationWithUser();
+              await model.disnablingGameStartPushNotificationWithUser();
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _batReportNotificationSettingCell(SettingModel model, Setting element, BuildContext context) { 
+    return Card(
+      child: ListTile(
+        title: Text(element.name),
+        trailing: CupertinoSwitch(
+          activeColor: Colors.blue,
+          value: model.isAvaiableBatReportPushNotification,
+          onChanged: (bool value) async {
+            if (value) {
+              if (!await model.enablingBatReportPushNotificationWithUser()) {
+                showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    title: Center(child: Text("プッシュ通知が利用できません")),
+                    content: Text("端末の通知設定 及び 本アプリの通知設定をONに変更して下さい"),
+                    actions: [ElevatedButton(onPressed: () => Navigator.pop(context), child: Text("OK"))],
+                  )
+                );
+              }
+            } else {
+              await model.disnablingBatReportPushNotificationWithUser();
             }
           },
         ),

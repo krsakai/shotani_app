@@ -6,12 +6,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribbon/ribbon.dart';
 import 'package:shotani_app/domain/news/news.dart';
 import 'package:shotani_app/extension/connection_state_extension.dart' show StateToFlag;
+import 'package:shotani_app/presentation/tab_page.dart';
 import 'package:shotani_app/util/font.dart';
 import 'package:shotani_app/util/url_launcher.dart';
 
 import 'news_model.dart';
 
-class NewsPage extends HookWidget {
+class NewsPage extends TabPage {
   NewsPage();
 
   final String pageName = "最新ニュース";
@@ -24,6 +25,12 @@ class NewsPage extends HookWidget {
         title: Text(pageName),
         brightness: Brightness.dark,
         automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () => model.reload()
+          ),
+        ],
       ),
       backgroundColor: Colors.grey.withOpacity(0.5),
       body: StreamBuilder(
@@ -101,7 +108,7 @@ class NewsCell extends HookWidget {
             Stack(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.only(left: 12, top: 12, right: 12, bottom: 22),
                   child: Text(news.messageText, overflow: TextOverflow.visible),
                 ),
                 Positioned.fill(

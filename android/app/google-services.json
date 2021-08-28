@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "1071447145734",
+    "project_id": "shotani-c61ce",
+    "storage_bucket": "shotani-c61ce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071447145734:android:8f22167e395a4d29f7f287",
+        "android_client_info": {
+          "package_name": "com.kuniya_work.shotani"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071447145734-va70qdue65j9c808lkcs17ti6okdo5au.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTU4qFy-udZbfDWdMBksZqW8ujtZcidLI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071447145734-va70qdue65j9c808lkcs17ti6okdo5au.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1071447145734-k94bb474ajtqhq4qdlroh4cqt60lv9l2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kuniya-work.shotani.dev"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071447145734:android:c014a999c5439edaf7f287",
+        "android_client_info": {
+          "package_name": "com.kuniya_work.shotani.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071447145734-va70qdue65j9c808lkcs17ti6okdo5au.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTU4qFy-udZbfDWdMBksZqW8ujtZcidLI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071447145734-va70qdue65j9c808lkcs17ti6okdo5au.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1071447145734-k94bb474ajtqhq4qdlroh4cqt60lv9l2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kuniya-work.shotani.dev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

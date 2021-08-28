@@ -7,7 +7,7 @@ import 'package:shotani_app/repository/news_repository.dart';
 final newsModelProvider = ChangeNotifierProvider.autoDispose((_) => NewsModel());
 
 class NewsModel extends Model {
-  final _reloadObserver = StreamController<bool>.broadcast();
+  final _reloadObserver = StreamController<bool>();
   Stream<bool> get loadStream => _reloadObserver.stream;
   
   List<News> newsList;

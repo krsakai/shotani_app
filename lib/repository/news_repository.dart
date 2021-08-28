@@ -7,7 +7,7 @@ class NewsRepository {
 
   Future<List<News>> get fetchNewsList async {
     try {
-      final result = await _db.collection("news").orderBy('newsId', descending: true).limit(10).get();
+      final result = await _db.collection("news").orderBy('newsId', descending: true).limit(20).get();
       return result.docs.map((e) => News.fromJson(e.data())).toList();
     } catch (exception) {
       Logger().e(exception.toString());

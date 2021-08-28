@@ -1,5 +1,6 @@
 enum SettingContent {
-  pushNotification,
+  gameStartPushNotification,
+  batReportPushNotification
 }
 
 class Setting {

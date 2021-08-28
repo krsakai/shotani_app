@@ -10,7 +10,7 @@ import 'package:shotani_app/repository/score_repository.dart';
 final latestScoreModelProvider = ChangeNotifierProvider.autoDispose((_) => LatestScoreModel());
 
 class LatestScoreModel extends Model {
-  final _reloadObserver = StreamController<bool>.broadcast();
+  final _reloadObserver = StreamController<bool>();
   Stream<bool> get loadStream => _reloadObserver.stream;
   
   List<LatestHitterScore> latestHitterScoreList;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import '../tab_page.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribbon/ribbon.dart';
 import 'package:shotani_app/domain/latest_score/latest_score.dart';
@@ -15,10 +15,10 @@ import 'package:shotani_app/util/url_launcher.dart';
 import 'package:table_sticky_headers/table_sticky_headers.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-class LatestScorePage extends HookWidget {
+class LatestScorePage extends TabPage {
   LatestScorePage();
 
-  final String pageName = "最新情報";
+  final String pageName = "最新成績";
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +28,12 @@ class LatestScorePage extends HookWidget {
         title: Text(pageName),
         brightness: Brightness.dark,
         automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () => model.reload()
+          ),
+        ],
       ),
       backgroundColor: Colors.grey.withOpacity(0.5),
       body: StreamBuilder(

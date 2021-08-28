@@ -18,9 +18,7 @@ class SamplePage extends HookWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:$pageName',
-            ),
+            Text('You have pushed the button this many times:$pageName'),
             Text(
               '${model.counter}',
               style: Theme.of(context).textTheme.headline4,

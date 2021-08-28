@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shotani_app/domain/latest_score/latest_score.dart';
 import 'package:shotani_app/extension/list_extension.dart';
 import 'package:shotani_app/extension/connection_state_extension.dart' show StateToFlag;
 import 'package:shotani_app/presentation/season_score/season_score_model.dart';
+import 'package:shotani_app/presentation/tab_page.dart';
 import 'package:shotani_app/util/border.dart';
 import 'package:shotani_app/util/colors.dart';
 import 'package:shotani_app/util/font.dart';
 import 'package:table_sticky_headers/table_sticky_headers.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-class SeasonScorePage extends HookWidget {
+class SeasonScorePage extends TabPage {
   SeasonScorePage();
 
   final String pageName = "シーズン成績";
@@ -24,6 +24,12 @@ class SeasonScorePage extends HookWidget {
         title: Text(pageName),
         brightness: Brightness.dark,
         automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () => model.reload()
+          ),
+        ],
       ),
       backgroundColor: Colors.grey.withOpacity(0.5),
       body: StreamBuilder(

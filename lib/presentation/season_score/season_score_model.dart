@@ -9,7 +9,7 @@ import 'package:shotani_app/repository/score_repository.dart';
 final seasonScoreModelProvider = ChangeNotifierProvider.autoDispose((_) => SeasonScoreModel());
 
 class SeasonScoreModel extends Model {
-  final _reloadObserver = StreamController<bool>.broadcast();
+  final _reloadObserver = StreamController<bool>();
   Stream<bool> get loadStream => _reloadObserver.stream;
   
   List<HitterScore> hitterScoreList;
