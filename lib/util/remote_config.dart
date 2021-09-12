@@ -21,6 +21,8 @@ class AppRemoteConfig {
       final appVersion = info.version;
       await remoteConfig.setDefaults(<String, dynamic>{
         'admob_banner_enabled': false,
+        'available_news': false,
+        'available_quiz': true,
         'required_version': appVersion,
         'app_id': '585027354'
         }
@@ -40,6 +42,10 @@ class AppRemoteConfig {
     final packageInfo = await PackageInfo.fromPlatform();
     return Version.parse(packageInfo.version).compareTo(requiredVersion).isNegative;
   }
+
+  static bool fetchAvaiableNews() => AppRemoteConfig.remoteConfig.getBool('available_news');
+
+  static bool fetchAvaiableQuiz() => AppRemoteConfig.remoteConfig.getBool('available_quiz');
 
   static String appId() => Version.parse(AppRemoteConfig.remoteConfig.getString('app_id')).toString();
 }

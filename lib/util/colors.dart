@@ -26,4 +26,7 @@ class AppColor {
   static const tableLeadCell = Color(0xFF2F72B9);
 
   static const tableCellNewRibbon = Color(0xFFFE001E);
+
+  static const offWhite = Color(0xFFF9F3F3);
+  static const primaryRed = Color(0xFFDE0F27);
 }

@@ -11,7 +11,6 @@ import 'package:shotani_app/util/border.dart';
 import 'package:shotani_app/util/colors.dart';
 import 'package:shotani_app/util/font.dart';
 import 'package:shotani_app/util/data_table_ribbon.dart';
-import 'package:shotani_app/util/url_launcher.dart';
 import 'package:table_sticky_headers/table_sticky_headers.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -196,7 +195,7 @@ class LatestScorePage extends TabPage {
   
   Widget _dataContentCell(LatestScore latestScore, String title, int row) => InkWell(
     onTap: () {
-      UrlLancher.launchInBrowser(latestScore.linkInformation['value']);
+      // UrlLancher.launchInBrowser(latestScore.linkInformation['value']);
     },
     child: Container(
       decoration: BoxDecoration(
