@@ -13,9 +13,9 @@ concurrency:
 jobs:
   review:
     runs-on: ubuntu-latest
-    if: >  # ジョブが実行される条件
-      github.event.label.name == 'InReview' ||  # ラベルがInReviewである
-      (github.event.action == 'opened' && contains(github.event.pull_request.labels.*.name, 'InReview'))  # プルリクエストがオープンされたときに既にInReviewラベルが付いている
+    if: >
+      github.event.label.name == 'InReview' || 
+      (github.event.action == 'opened' && contains(github.event.pull_request.labels.*.name, 'InReview'))
     steps:
       - uses: actions/checkout@v2
         with:
