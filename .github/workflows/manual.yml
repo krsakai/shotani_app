@@ -12,16 +12,17 @@ on:
         required: true
 
 concurrency:
-  group:
-    ${{ github.repository }}-${{ github.event.number || github.head_ref ||
-    github.sha }}-${{ github.workflow }}-${{ github.event_name ==
-    'pull_request_review_comment' && 'pr_comment' || 'pr' }}
+  group: ${{ github.repository }}-${{ github.event.inputs.pull_request_number || github.head_ref || github.sha }}-${{ github.workflow }}-${{ github.event_name == 'pull_request_review_comment' && 'pr_comment' || 'workflow_dispatch' || 'pr' }}
   cancel-in-progress: ${{ github.event_name != 'pull_request_review_comment' }}
 
 jobs:
   review:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          ref: refs/pull/${{ github.event.inputs.pull_request_number }}/merge
       - uses: coderabbitai/ai-pr-reviewer@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -30,11 +31,10 @@ jobs:
           debug: false
           review_simple_changes: false
           review_comment_lgtm: false
-          openai_heavy_model: gpt-4
+          openai_light_model: gpt-4-1106-preview
+          openai_heavy_model: gpt-4-1106-preview
+          openai_timeout_ms: 900000
           language: ja-JP
-          path_filters: |
-            !dist/**
-            !**/*.lock
           system_message: |
             あなたは @coderabbitai（別名 github-actions[bot]）で、OpenAIによって訓練された言語モデルです。
             あなたの目的は、非常に経験豊富なソフトウェアエンジニアとして機能し、コードの一部を徹底的にレビューし、
