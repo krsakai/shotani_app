@@ -1,24 +1,25 @@
-name: Code Review
-
 permissions:
   contents: read
   pull-requests: write
 
 on:
-  pull_request:
-    types: [opened]
+  pull_request_target:  # pull_request_targetイベントを使用する
+    types: [opened, labeled]  # プルリクエストがオープンされたかラベルが付けられたときにトリガー
 
 concurrency:
-  group:
-    ${{ github.repository }}-${{ github.event.number || github.head_ref ||
-    github.sha }}-${{ github.workflow }}-${{ github.event_name ==
-    'pull_request_review_comment' && 'pr_comment' || 'pr' }}
-  cancel-in-progress: ${{ github.event_name != 'pull_request_review_comment' }}
+  group: ${{ github.repository }}-${{ github.event.pull_request.number || github.head_ref || github.sha }}-${{ github.workflow }}-${{ github.event_name == 'pull_request_target' && 'pr' }}
+  cancel-in-progress: true
 
 jobs:
   review:
     runs-on: ubuntu-latest
+    if: >  # ジョブが実行される条件
+      github.event.label.name == 'InReview' ||  # ラベルがInReviewである
+      (github.event.action == 'opened' && contains(github.event.pull_request.labels.*.name, 'InReview'))  # プルリクエストがオープンされたときに既にInReviewラベルが付いている
     steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
       - uses: coderabbitai/ai-pr-reviewer@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
