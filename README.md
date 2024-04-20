@@ -7,3 +7,7 @@ flutter pub run build_runner build --delete-conflicting-outputs
 rm -rf ~/Library/Developer/Xcode/DerivedData/*
 xcodebuild  -sdk "${TARGET_SDK}" -xcconfig "${CONFIG_FILE_PATH}"  -configuration Release clean build
 ```
+
+# アプリケーション構築手順
+
+TODO: 構築手順を描く
